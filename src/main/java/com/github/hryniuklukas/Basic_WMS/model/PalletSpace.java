@@ -7,14 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Entity
 @Getter
 @Setter
 public class PalletSpace {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     private String spaceCode;
+    public PalletSpace(String spaceCode){
+        this.spaceCode = spaceCode;
+    }
 }
