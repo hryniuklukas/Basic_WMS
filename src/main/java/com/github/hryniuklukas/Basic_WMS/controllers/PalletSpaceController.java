@@ -1,11 +1,10 @@
 package com.github.hryniuklukas.Basic_WMS.controllers;
 
+import com.github.hryniuklukas.Basic_WMS.model.Pallet;
 import com.github.hryniuklukas.Basic_WMS.model.PalletSpace;
 import com.github.hryniuklukas.Basic_WMS.services.PalletSpaceService;
 import org.slf4j.Logger;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +24,13 @@ public class PalletSpaceController {
     List<PalletSpace> listAllPalletSpaces(){
 
         return palletSpaceService.listAllPalletSpaces();
+    }
+    @PostMapping
+    void addPalletToPalletSpace(@RequestBody String message){
+        String palletCode;
+        String palletID;
+        palletCode = message.split("_")[0];
+        palletID = message.split("_")[1];
+        palletSpaceService.addPalletToPalletSpace(new Pallet(palletCode), Long.parseLong(palletID));
     }
 }
