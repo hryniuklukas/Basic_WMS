@@ -1,36 +1,46 @@
 package com.github.hryniuklukas.Basic_WMS.controllers;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.hryniuklukas.Basic_WMS.model.Pallet;
+import com.github.hryniuklukas.Basic_WMS.model.PalletDTO;
 import com.github.hryniuklukas.Basic_WMS.model.PalletSpace;
+import com.github.hryniuklukas.Basic_WMS.model.PalletSpaceDTO;
 import com.github.hryniuklukas.Basic_WMS.services.PalletSpaceService;
-import org.slf4j.Logger;
+import com.github.hryniuklukas.Basic_WMS.utils.DTOMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 @RestController
+@Slf4j
 @RequestMapping("/palletspace")
 public class PalletSpaceController {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(PalletSpaceController.class);
+  private final DTOMapper mapper;
 
-    private final PalletSpaceService palletSpaceService;
-    public PalletSpaceController(PalletSpaceService palletSpaceService){
-        this.palletSpaceService=palletSpaceService;
-    }
+  private final PalletSpaceService palletSpaceService;
 
-    @GetMapping
-    List<PalletSpace> listAllPalletSpaces(){
+  public PalletSpaceController(DTOMapper mapper, PalletSpaceService palletSpaceService) {
+    this.mapper = mapper;
+    this.palletSpaceService = palletSpaceService;
+  }
 
-        return palletSpaceService.listAllPalletSpaces();
-    }
-    @PostMapping
-    void addPalletToPalletSpace(@RequestBody String message){
-        String palletCode;
-        String palletID;
-        palletCode = message.split("_")[0];
-        palletID = message.split("_")[1];
-        palletSpaceService.addPalletToPalletSpace(new Pallet(palletCode), Long.parseLong(palletID));
-    }
+  @GetMapping
+  List<PalletSpaceDTO> listAllPalletSpaces() {
+    return palletSpaceService.listAllPalletSpaces();
+  }
+
+  @PostMapping
+  void addPalletToPalletSpace(
+      @RequestBody ObjectNode messageNode) { // Done with ObjectNode from jackson library
+
+    palletSpaceService.addPalletToPalletSpace(messageNode);
+  }
+
+  @GetMapping("/pallets")
+  PalletDTO listTestPallet() {
+    return mapper.toDTO(new Pallet("1234"));
+  }
 }
