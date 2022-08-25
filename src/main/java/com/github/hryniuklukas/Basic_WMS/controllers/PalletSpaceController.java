@@ -3,18 +3,15 @@ package com.github.hryniuklukas.Basic_WMS.controllers;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.hryniuklukas.Basic_WMS.model.Pallet;
 import com.github.hryniuklukas.Basic_WMS.model.PalletDTO;
-import com.github.hryniuklukas.Basic_WMS.model.PalletSpace;
 import com.github.hryniuklukas.Basic_WMS.model.PalletSpaceDTO;
 import com.github.hryniuklukas.Basic_WMS.services.PalletSpaceService;
 import com.github.hryniuklukas.Basic_WMS.utils.DTOMapper;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@Slf4j
 @RequestMapping("/palletspace")
 public class PalletSpaceController {
 
