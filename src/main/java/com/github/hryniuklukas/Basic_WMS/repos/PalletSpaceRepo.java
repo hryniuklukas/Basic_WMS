@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface PalletSpaceRepo extends JpaRepository<PalletSpace,Long>, JpaSpecificationExecutor<PalletSpace> {
 
+
 }
