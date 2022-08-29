@@ -32,20 +32,13 @@ public class PalletSpaceService {
     log.info("Listing all pallet spaces;");
     return palletSpaceRepo.findAll().stream().map(mapper::toDTO).toList();
   }
-
-  public void addPalletToPalletSpace(ObjectNode messageNode) {
-    String palletCode = messageNode.get("palletCode").asText();
+  public void createPalletSpace(ObjectNode messageNode){
     String palletSpaceCode = messageNode.get("palletSpace").asText();
-    CustomSpecification<PalletSpace> mySpec1 =
-        new CustomSpecification<>(new SearchCriteria("spaceCode", ":", palletSpaceCode));
-    Optional<PalletSpace> foundPalletSpace =
-        palletSpaceRepo.findOne(Specification.where(mySpec1));
-    if (foundPalletSpace.isPresent()) {
-      foundPalletSpace.get().addPallet(new Pallet(palletCode));
-      palletSpaceRepo.save(foundPalletSpace.get());
-      log.info("Pallet with code: {} has been placed on Pallet Space with code: {}", palletCode, palletSpaceCode);
-    }else{
-      log.info("Pallet Space with code: {} hasn't been found", palletSpaceCode);
-    }
+    palletSpaceRepo.save(new PalletSpace(palletSpaceCode));
+  }
+  public List<PalletSpaceDTO> getAllPalletsFromPalletSpace(Long id){
+    return palletSpaceRepo.findById(id).stream()
+            .map(mapper::toDTO)
+            .toList();
   }
 }

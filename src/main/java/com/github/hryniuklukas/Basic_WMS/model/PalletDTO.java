@@ -11,9 +11,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class PalletDTO {
     String palletCode;
-    PalletSpaceDTO palletSpaceDTO;
-  public PalletDTO(String palletCode, PalletSpaceDTO palletSpaceDTO) {
+
+  public PalletDTO(String palletCode) {
     this.palletCode = palletCode;
-    this.palletSpaceDTO=palletSpaceDTO;
     }
 }

@@ -30,14 +30,16 @@ public class PalletSpaceController {
   }
 
   @PostMapping
-  void addPalletToPalletSpace(
-      @RequestBody ObjectNode messageNode) { // Done with ObjectNode from jackson library
-
-    palletSpaceService.addPalletToPalletSpace(messageNode);
+  void createPalletSpace(@RequestBody ObjectNode messageNode){
+    palletSpaceService.createPalletSpace(messageNode);
   }
 
   @GetMapping("/pallets")
   PalletDTO listTestPallet() {
     return mapper.toDTO(new Pallet("1234"));
+  }
+  @GetMapping("/{id}")
+  List<PalletSpaceDTO> getPalletsFromPalletSpace(@PathVariable Long id){
+    return palletSpaceService.getAllPalletsFromPalletSpace(id);
   }
 }
