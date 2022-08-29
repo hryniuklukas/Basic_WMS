@@ -11,10 +11,10 @@ import java.util.List;
 @EqualsAndHashCode
 public class PalletSpaceDTO {
   String spaceCode;
-  List<PalletDTO> palletDTOList;
+  List<PalletShortDTO> palletShortDTOList;
 
-  public PalletSpaceDTO(String spaceCode, List<PalletDTO> palletDTOList)  {
+  public PalletSpaceDTO(String spaceCode, List<PalletShortDTO> palletShortDTOList)  {
     this.spaceCode = spaceCode;
-    this.palletDTOList=palletDTOList;
+    this.palletShortDTOList=palletShortDTOList;
   }
 }

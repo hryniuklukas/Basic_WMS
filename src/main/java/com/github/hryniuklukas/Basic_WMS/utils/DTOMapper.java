@@ -1,9 +1,6 @@
 package com.github.hryniuklukas.Basic_WMS.utils;
 
-import com.github.hryniuklukas.Basic_WMS.model.Pallet;
-import com.github.hryniuklukas.Basic_WMS.model.PalletDTO;
-import com.github.hryniuklukas.Basic_WMS.model.PalletSpace;
-import com.github.hryniuklukas.Basic_WMS.model.PalletSpaceDTO;
+import com.github.hryniuklukas.Basic_WMS.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -11,7 +8,10 @@ import java.util.stream.Collectors;
 @Component
 public class DTOMapper {
   public PalletDTO toDTO(Pallet pallet) {
-    return new PalletDTO(pallet.getPalletCode());
+    return new PalletDTO(pallet.getPalletCode(), this.toShortDTO(pallet.getPalletSpace()));
+  }
+  public PalletShortDTO toShortDTO(Pallet pallet){
+    return new PalletShortDTO(pallet.getPalletCode());
   }
 
   public Pallet toDomain(PalletDTO palletDTO) {
@@ -21,9 +21,12 @@ public class DTOMapper {
   public PalletSpaceDTO toDTO(PalletSpace palletSpace) {
     return new PalletSpaceDTO(palletSpace.getSpaceCode(),
             palletSpace.getPalletList().stream()
-            .map(this::toDTO)
+            .map(this::toShortDTO)
                     .toList()
     );
+  }
+  public PalletSpaceShortDTO toShortDTO(PalletSpace palletSpace){
+    return new PalletSpaceShortDTO(palletSpace.getSpaceCode());
   }
 
   public PalletSpace toDomain(PalletSpaceDTO palletSpaceDTO) {
