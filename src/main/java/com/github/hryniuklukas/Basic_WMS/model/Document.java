@@ -26,9 +26,6 @@ public class Document {
     pallet.setOutboundDocument(this);
   }
 
-  public List<Pallet> getConnectedPalletList() {
-    return this.palletList;
-  }
 
   public void removePalletFromDocument(Pallet pallet) {
     palletList.remove(pallet);
