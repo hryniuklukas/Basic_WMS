@@ -11,6 +11,7 @@ import com.github.hryniuklukas.Basic_WMS.utils.DTOMapper;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -39,7 +40,7 @@ public class PalletSpaceController {
 
   @GetMapping("/pallets")
   PalletDTO listTestPallet() {
-    return mapper.toDTO(new Pallet("1234"));
+    return mapper.toDTO(new Pallet("1234", LocalDate.of(2020,1,1)));
   }
   @GetMapping("/{id}")
   List<PalletSpaceDTO> getPalletsFromPalletSpace(@PathVariable Long id){

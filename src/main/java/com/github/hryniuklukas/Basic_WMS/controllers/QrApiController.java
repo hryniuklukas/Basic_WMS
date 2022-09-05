@@ -3,7 +3,6 @@ package com.github.hryniuklukas.Basic_WMS.controllers;
 import com.github.hryniuklukas.Basic_WMS.services.QrApiService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/qr")

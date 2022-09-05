@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BasicWmsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BasicWmsApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(BasicWmsApplication.class, args);
+  }
 }

@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,26 +36,21 @@ public class PalletService {
     return palletRepo.findAll().stream().map(mapper::toDTO).toList();
   }
 
-  public void addPalletToPalletSpace(ObjectNode messageNode) {
-    String palletCode = messageNode.get("palletCode").asText();
-    String palletSpaceCode;
-    if (messageNode.get("palletSpace").asText().equals("")) {
-      palletSpaceCode = "INBOUND BUFFER";
-    } else {
-      palletSpaceCode = messageNode.get("palletSpace").asText();
+  public void addPalletToPalletSpace(PalletDTO palletDTO, Long id) {
+    if (id == 0) {
+      id = 9L;
     }
-    CustomSpecification<PalletSpace> mySpec1 =
-        new CustomSpecification<>(new SearchCriteria("spaceCode", ":", palletSpaceCode));
-    Optional<PalletSpace> foundPalletSpace = palletSpaceRepo.findOne(Specification.where(mySpec1));
-    if (foundPalletSpace.isPresent()) {
-      foundPalletSpace.get().addPallet(new Pallet(palletCode));
-      palletSpaceRepo.save(foundPalletSpace.get());
+    if (palletSpaceRepo.findById(id).isPresent()) {
+      PalletSpace foundPalletSpace = palletSpaceRepo.findById(id).get();
+      Pallet palletToAdd = mapper.toDomain(palletDTO);
+      foundPalletSpace.addPallet(palletToAdd);
+      palletSpaceRepo.save(foundPalletSpace);
       log.info(
           "Pallet with code: {} has been placed on Pallet Space with code: {}",
-          palletCode,
-          palletSpaceCode);
+          palletToAdd.getPalletCode(),
+          foundPalletSpace.getSpaceCode());
     } else {
-      log.info("Pallet Space with code: {} hasn't been found", palletSpaceCode);
+      log.info("Pallet not added. Pallet space with id: {} not found.", id);
     }
   }
 }

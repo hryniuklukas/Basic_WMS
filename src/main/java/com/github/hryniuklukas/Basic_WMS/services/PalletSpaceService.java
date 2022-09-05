@@ -19,7 +19,7 @@ public class PalletSpaceService {
   private final QrApiService qrApiService;
 
   public PalletSpaceService(
-          PalletSpaceRepo palletSpaceRepo, DTOMapper mapper, QrApiService qrApiService) {
+      PalletSpaceRepo palletSpaceRepo, DTOMapper mapper, QrApiService qrApiService) {
     this.palletSpaceRepo = palletSpaceRepo;
     this.mapper = mapper;
     this.qrApiService = qrApiService;
@@ -29,16 +29,17 @@ public class PalletSpaceService {
     log.info("Listing all pallet spaces;");
     return palletSpaceRepo.findAll().stream().map(mapper::toDTO).toList();
   }
-  public void createPalletSpace(ObjectNode messageNode){
+
+  public void createPalletSpace(ObjectNode messageNode) {
     String palletSpaceCode = messageNode.get("palletSpace").asText();
     palletSpaceRepo.save(new PalletSpace(palletSpaceCode));
   }
-  public List<PalletSpaceDTO> getAllPalletsFromPalletSpace(Long id){
-    return palletSpaceRepo.findById(id).stream()
-            .map(mapper::toDTO)
-            .toList();
+
+  public List<PalletSpaceDTO> getAllPalletsFromPalletSpace(Long id) {
+    return palletSpaceRepo.findById(id).stream().map(mapper::toDTO).toList();
   }
-  public byte[] getQrForPalletSpace(Long id){
+
+  public byte[] getQrForPalletSpace(Long id) {
     return qrApiService.getQR("200x200", palletSpaceRepo.findById(id).get().getSpaceCode());
   }
 }

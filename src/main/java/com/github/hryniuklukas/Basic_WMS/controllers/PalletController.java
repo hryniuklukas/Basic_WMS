@@ -1,6 +1,7 @@
 package com.github.hryniuklukas.Basic_WMS.controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.hryniuklukas.Basic_WMS.model.Pallet;
 import com.github.hryniuklukas.Basic_WMS.model.PalletDTO;
 import com.github.hryniuklukas.Basic_WMS.services.PalletService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +23,9 @@ public class PalletController {
     public List<PalletDTO> getAllPallets(){
         return palletService.listAllPallets();
     }
-    @PostMapping
-    void addPalletToPalletSpace(
-            @RequestBody ObjectNode messageNode) { // Done with ObjectNode from jackson library
-
-        palletService.addPalletToPalletSpace(messageNode);
+    @PostMapping("/{id}")
+    void addPalletToPalletSpace(@PathVariable Long id,
+            @RequestBody PalletDTO palletDTO) {
+        palletService.addPalletToPalletSpace(palletDTO, id);
     }
 }
