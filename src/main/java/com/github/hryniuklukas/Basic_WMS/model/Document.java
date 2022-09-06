@@ -1,15 +1,15 @@
 package com.github.hryniuklukas.Basic_WMS.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Slf4j
@@ -21,6 +21,11 @@ public class Document {
   @OneToMany(mappedBy = "outboundDocument", cascade = CascadeType.PERSIST)
   private List<Pallet> palletList = new ArrayList<>();
 
+  private LocalDate creationDate;
+
+  public Document(){
+    creationDate = LocalDate.now();
+  }
   public void addPalletToDocument(Pallet pallet) {
     palletList.add(pallet);
     pallet.setOutboundDocument(this);

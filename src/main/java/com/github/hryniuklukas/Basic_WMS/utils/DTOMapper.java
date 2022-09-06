@@ -32,4 +32,8 @@ public class DTOMapper {
   public PalletSpace toDomain(PalletSpaceDTO palletSpaceDTO) {
     return new PalletSpace(palletSpaceDTO.getSpaceCode());
   }
+
+  public DocumentDTO toDTO(Document document){
+    return new DocumentDTO(document.getId(), document.getCreationDate(), document.getPalletList().stream().map(this::toDTO).toList());
+  }
 }
