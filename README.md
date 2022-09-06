@@ -1,6 +1,9 @@
 # Basic_WMS
 Basic WMS app for tracking single SKU
 
+
+#Project made solely for educational purposes on my Java and Spring learning path
+
 Whole scope of this project is creating a simple app to handle small db of warehouse inventory, considering one stock keeping unit:
 
 1) PalletSpace serves as a location to store an SKU which corresponds to physical space on the warehouse.
